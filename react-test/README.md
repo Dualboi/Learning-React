@@ -1,3 +1,8 @@
+# Workspace for learning React from the ground up
+I aim to finish this project workspace by the end of my current placement finishing with some kind of portfolio peice built in React.
+
+
+
 # React + Vite
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
