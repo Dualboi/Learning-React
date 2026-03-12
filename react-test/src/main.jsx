@@ -1,4 +1,5 @@
 import { createRoot } from 'react-dom/client'
+import React, { useState } from 'react';
 
 const myelement =  (
   <table>
@@ -71,7 +72,8 @@ function MyList(){
 
 // Destructuring assignment
 // Note: Destructuring makes React code cleaner and more readable by reducing repetitive object and array access.
-// Destructuring is a JavaScript feature that allows you to extract values from objects or arrays into distinct variables. In React, it's commonly used with props, hooks, and state management.
+// Destructuring is a JavaScript feature that allows you to extract values from objects or arrays into distinct variables. 
+// In React, it's commonly used with props, hooks, and state management.
 
 // old way
 const vehicle = ['mustang', 'f-150', 'expedition'];
@@ -95,6 +97,54 @@ function dateInfo(dat) {
 const [date, month, year] = dateInfo(new Date())
 
 
+const person = {
+  firstName: "John",
+  lastName: "Doe",
+  age: 50
+};
+
+// Destructuring
+let {firstName, lastName, age} = person;
+
+// Destructuring in useState Hook
+function Counter(){
+  // Destructuring the array returned by useState
+  const [count, setCount] = useState(0);
+
+  return (
+    <button onClick={() => setCount(count + 1)}>
+      Count: {count}
+    </button>
+  )
+}
+
+// Spread operator ...
+const cars = {
+  brand: 'Ford',
+  model: 'Mustang',
+  color: 'red'
+}
+
+const car_more = {
+  type: 'car',
+  year: 2021,
+  color: 'yellow'
+}
+
+const mycars = {...cars, ...car_more}
+
+function mapping_the_output(){
+  return (
+    <ul>
+      {Object.entries(mycars).map(([key, value]) => 
+        <li key={key}>{key}: {value}</li>
+      )}
+    </ul>
+  )
+}
+
+
+
 createRoot(document.getElementById('root')).render(
   <div>
   {myelement}
@@ -109,8 +159,9 @@ createRoot(document.getElementById('root')).render(
   <p>{truck}</p>
   <p>with destructuring</p>
   <p>{truck2}</p>
-
   <p>The year is {year}</p>
-
+  <p>{firstName} {lastName} {age} years old</p>
+  <Counter />
+  {mapping_the_output()}
   </div>
 )
