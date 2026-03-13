@@ -1,5 +1,6 @@
 import { createRoot } from 'react-dom/client'
 import React, { useState } from 'react';
+import message from './message.jsx';
 
 const myelement =  (
   <table>
@@ -143,7 +144,12 @@ function mapping_the_output(){
   )
 }
 
-
+// Template Strings you can use any expression inside a template string by wrapping it in curly braces ${expression}.
+// Enclused using backticks ``, not single or double quotes.
+// indentation and line breaks are preserved in template strings, which can make your code more readable.
+const name = "john";
+const ages =30;
+const message2 = `${name} is ${ages} years old.`
 
 createRoot(document.getElementById('root')).render(
   <div>
@@ -163,5 +169,7 @@ createRoot(document.getElementById('root')).render(
   <p>{firstName} {lastName} {age} years old</p>
   <Counter />
   {mapping_the_output()}
+  <p>{message()}</p>
+  <p>{message2}</p>
   </div>
 )
