@@ -1,6 +1,32 @@
 import { createRoot } from 'react-dom/client'
 import React, { useState } from 'react';
 import message from './message.jsx';
+import {myElement} from './learnJSX.jsx';
+import {myElement2} from './learnJSX.jsx';
+import {myElement3} from './learnJSX.jsx';
+import {myElement4} from './learnJSX.jsx';
+import {MyCar} from './learnJSX.jsx';
+import {MySavings} from './learnJSX.jsx';
+import {MyObject} from './learnJSX.jsx';
+import {StyledCar} from './learnJSX.jsx';
+import {Fruits} from './learnJSX.jsx';
+import {FruitsT} from './learnJSX.jsx';
+import {Car6} from './learnJSX.jsx';
+import {Car7} from './learnJSX.jsx';
+import {Garage} from './learnJSX.jsx';
+import {Parent} from './learnJSX.jsx';
+import {Football} from './learnJSX.jsx';
+import {Football2} from './learnJSX.jsx';
+import {Goal} from './learnJSX.jsx';
+import {Car_more} from './learnJSX.jsx';
+import {Goal_more_more} from './learnJSX.jsx';
+import {ListCar} from './learnJSX.jsx';
+import {Listcar2} from './learnJSX.jsx';
+import {ListCar3} from './learnJSX.jsx';
+import {MyForm} from './learnJSX.jsx';
+import {MyForm2} from './learnJSX.jsx';
+import {MyForm3} from './learnJSX.jsx';
+import {MyForm4} from './learnJSX.jsx';
 
 const myelement =  (
   <table>
@@ -97,7 +123,6 @@ function dateInfo(dat) {
 }
 const [date, month, year] = dateInfo(new Date())
 
-
 const person = {
   firstName: "John",
   lastName: "Doe",
@@ -167,9 +192,43 @@ createRoot(document.getElementById('root')).render(
   <p>{truck2}</p>
   <p>The year is {year}</p>
   <p>{firstName} {lastName} {age} years old</p>
-  <Counter />
+  <Counter/>
   {mapping_the_output()}
   <p>{message()}</p>
   <p>{message2}</p>
+  <h1>Part two: Learning JSX</h1>
+  <p>{myElement}</p>
+  <p>{myElement2}</p>
+  {myElement3}
+  {myElement4}
+  <MyCar/>
+  <MySavings/>
+  <MyObject/>
+  <StyledCar/>
+  <Fruits/>
+  <FruitsT/>
+  <Car6 color="red"/>
+  <Car6 year={2021}/>
+  <Car7/>
+  <Garage/>
+  <Parent/>
+  <Football/>
+  <Football2/>
+  <Goal isGoal={false}/>
+  <Car_more brand="Ford"/>
+  <Goal_more_more isGoal={false}/>
+  <h1>This uses basic Mapping to display</h1>
+  <ListCar/>
+  <h1>This uses a created key to display</h1>
+  <Listcar2/>
+  <h1>This uses the index to display</h1>
+  <ListCar3/>
+  <MyForm/>
+  <h1>using react useState and a Hook</h1>
+  <MyForm2/>
+  <h1>using a submit button</h1>
+  <MyForm3/>
+  <h1>Using textarea</h1>
+  <MyForm4/>
   </div>
 )
