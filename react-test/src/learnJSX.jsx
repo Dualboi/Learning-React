@@ -332,10 +332,10 @@ export function MyForm3() {
     return (
         <form onSubmit={handleSubmit}>
             <label>Enter your name:
-                <input 
-                type="text"
-                value={name}
-                onChange={handleChange}
+                <input
+                    type="text"
+                    value={name}
+                    onChange={handleChange}
                 />
             </label>
             <input type="submit" />
@@ -354,11 +354,278 @@ export function MyForm4() {
     return (
         <form>
             <label>Write here:
-              <textarea
-              value={mytxt}
-              onChange={handleChange}
-              />
+                <textarea
+                    value={mytxt}
+                    onChange={handleChange}
+                />
             </label>
         </form>
     )
+}
+
+// Select
+export function MyForm5() {
+    const [myCar, setMyCar] = useState("Volvo")
+
+    const handleChange = (event) => {
+        setMyCar(event.target.value)
+    }
+
+    return (
+        <form>
+            <select value={myCar} onChange={handleChange}>
+                <option value="Ford">Ford</option>
+                <option value="Volvo">Volvo</option>
+                <option value="Fiat">Fiat</option>
+            </select>
+        </form>
+    )
+}
+
+// Using useState Hook to manage the input
+export function MyForm6() {
+    const [inputs, setInputs] = useState({
+        firstname: 'John',
+        lastname: 'Doe'
+    });
+
+    const handleChange = (e) => {
+        const name = e.target.name;
+        const value = e.target.value;
+        setInputs(values => ({ ...values, [name]: value }))
+    }
+
+    return (
+        <form>
+            <label>First name:
+                <input
+                    type="text"
+                    name="firstname"
+                    value={inputs.firstname}
+                    onChange={handleChange}
+                />
+            </label>
+            <label>Last name:
+                <input
+                    type="text"
+                    name="lastname"
+                    value={inputs.lastname}
+                    onChange={handleChange}
+                />
+            </label>
+            <p>Current values: {inputs.firstname} {inputs.lastname}</p>
+        </form>
+    )
+}
+
+// Checkbox
+// For checkboxes, use the checked attribute instead of value to control its state.
+export function MyForm7() {
+    const [inputs, setInputs] = useState({});
+
+    const handleChange = (e) => {
+        const target = e.target;
+        const value = target.type === 'checkbox' ? target.checked : target.value;
+        const name = target.name;
+        setInputs(values => ({ ...values, [name]: value }))
+    }
+
+    const handleSubmit = (event) => {
+        let fillings = '';
+        if (inputs.tomato) fillings += 'tomato';
+        if (inputs.onion) {
+            if (inputs.tomato) fillings += ' and';
+            fillings += 'onion';
+        }
+        if (fillings == '') fillings = 'no fillings';
+        alert(`${inputs.firstname} wants a burger with ${fillings}`);
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <label>My name is:
+                <input
+                    type="text"
+                    name="firstname"
+                    value={inputs.firstname}
+                    onChange={handleChange}
+                />
+            </label>
+
+            <p>I want a burger with:</p>
+            <label>Onion:
+                <input
+                    type="checkbox"
+                    name="onion"
+                    checked={inputs.onion}
+                    onChange={handleChange}
+                />
+            </label>
+            <button type="submit">Submit</button>
+        </form>
+    )
+}
+
+// Radio forms
+export function MyForm8() {
+    const [selectedFruit, setSelectedFruit] = useState('banana');
+
+    const handleChange = (event) => {
+        setSelectedFruit(event.target.value);
+    };
+
+    const handleSubmit = (event) => {
+        alert(`Your favourite fruit is: ${selectedFruit}`);
+        event.preventDefault();
+    };
+
+    return (
+        <form onSubmit={handleSubmit}>
+            <p>Select your favorite fruit:</p>
+            <label>
+                <input
+                    type="radio"
+                    name="fruit"
+                    value="apple"
+                    checked={selectedFruit == 'apple'}
+                    onChange={handleChange}
+                />
+                Apple
+            </label>
+            <label>
+                <input
+                    type="radio"
+                    name="fruit"
+                    value="banana"
+                    checked={selectedFruit === 'banana'}
+                    onChange={handleChange}
+                /> Banana
+            </label>
+            <br />
+            <label>
+                <input
+                    type="radio"
+                    name="fruit"
+                    value="cherry"
+                    checked={selectedFruit === 'cherry'}
+                    onChange={handleChange}
+                /> Cherry
+            </label>
+            <br />
+            <button type="submit">Submit</button>
+        </form>
+    )
+}
+
+// Portals: React Portals provide a way to render HTML outside the parent component's DOM hierarchy
+import { createPortal } from 'react-dom';
+
+export function myChild() {
+    return createPortal(
+        <div>
+            Welcome
+        </div>,
+        document.body
+    );
+}
+
+// Creating a Modal with portal
+// React Portals are particularly useful for components like modals, tooltips, and dialogs that need to break out of their container's layout.
+function Modal({ isOpen, onClose, children }) {
+    if (!isOpen) return null;
+
+    return createPortal(
+        <div style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            backgroundColor: 'rgb(0,0,0,0.5)',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+        }}>
+            <div style={{
+                background: 'white',
+                padding: '20px',
+                borderRadius: '8px'
+            }}>
+                {children}
+                <button onClick={onClose}>Close</button>
+            </div>
+        </div>,
+        document.body
+    );
+}
+
+export function MyApp1() {
+    const [isOpen, setIsOpen] = useState(false);
+
+    return (
+        <div>
+            <h1>My App</h1>
+            <button onClick={() => setIsOpen(true)}>
+                Open Modal
+            </button>
+
+            <Modal isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                <h2>Modal Content</h2>
+                <p>This content is rendered outside the App component!</p>
+            </Modal>
+        </div>
+    );
+}
+
+
+// event bubbling in portals
+// Even though a portal renders content in a different part of the DOM tree,
+// events from the portal content still bubble up through the React component tree as if the portal wasn't there.
+function PortalButton({ onClick, children }) {
+  return createPortal(
+    <button 
+      onClick={onClick}
+      style={{
+        position: 'fixed',
+        bottom: '20px',
+        right: '20px',
+        padding: '10px',
+        background: 'blue',
+        color: 'white'
+      }}>
+      {children}
+    </button>,
+    document.body
+  );
+}
+
+export function App() {
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+
+  return (
+    <div
+      style={{
+        padding: '20px',
+        border: '2px solid black',
+        margin: '20px'
+      }}
+      onClick={() => {
+        setCount1(c => c + 1);
+      }}>
+      <h2>Div Clicked: {count1}</h2>
+      <h2>Button Clicked: {count2}</h2>      
+      <p>The floating button is rendered outside this box using a portal,
+          but its clicks still bubble up to this parent div!</p>
+      <p>Try to click the div element as well, to see the count increase</p>
+      
+      <PortalButton
+        onClick={(e) => {
+          // This runs first
+          setCount2(c => c + 1);
+        }}>
+        Floating Button
+      </PortalButton>
+    </div>
+  );
 }
