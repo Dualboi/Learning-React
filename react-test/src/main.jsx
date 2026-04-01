@@ -2,20 +2,20 @@ import { createRoot } from 'react-dom/client'
 import React, { useState } from 'react';
 import message from './message.jsx';
 import * as learnJSX from './learnJSX.jsx';
+import './style.css';
 
-
-const myelement =  (
+const myelement = (
   <table>
     <tbody>
-    <tr>
-      <th>Name</th>
-    </tr>
-    <tr>
-      <td>John</td>
-    </tr>
-    <tr>
-      <td>Elsa</td>
-    </tr>
+      <tr>
+        <th>Name</th>
+      </tr>
+      <tr>
+        <td>John</td>
+      </tr>
+      <tr>
+        <td>Elsa</td>
+      </tr>
     </tbody>
   </table>
 )
@@ -36,7 +36,7 @@ class Model extends Car {
     this.model = mod;
   }
   show() {
-    return this.present()+' and it is a '+ this.model
+    return this.present() + ' and it is a ' + this.model
   }
 }
 
@@ -63,7 +63,7 @@ const numbers = [1, 2, 3, 4];
 const doubled = numbers.map(x => x * 2);
 
 const fruitlist = ["apple", "banana", "cherry"];
-function MyList(){
+function MyList() {
   return (
     <ul>
       {fruitlist.map(fruit =>
@@ -106,10 +106,10 @@ const person = {
 };
 
 // Destructuring
-let {firstName, lastName, age} = person;
+let { firstName, lastName, age } = person;
 
 // Destructuring in useState Hook
-function Counter(){
+function Counter() {
   // Destructuring the array returned by useState
   const [count, setCount] = useState(0);
 
@@ -133,12 +133,12 @@ const car_more = {
   color: 'yellow'
 }
 
-const mycars = {...cars, ...car_more}
+const mycars = { ...cars, ...car_more }
 
-function mapping_the_output(){
+function mapping_the_output() {
   return (
     <ul>
-      {Object.entries(mycars).map(([key, value]) => 
+      {Object.entries(mycars).map(([key, value]) =>
         <li key={key}>{key}: {value}</li>
       )}
     </ul>
@@ -149,69 +149,80 @@ function mapping_the_output(){
 // Enclused using backticks ``, not single or double quotes.
 // indentation and line breaks are preserved in template strings, which can make your code more readable.
 const name = "john";
-const ages =30;
+const ages = 30;
 const message2 = `${name} is ${ages} years old.`
 
 createRoot(document.getElementById('root')).render(
   <div>
-  {myelement}
-  <p>{mycar.show()}</p>
-  <p>{hello(val)}</p>
-  <p>X equals {x}</p>
-  <p>Y equals {y}</p>
-  <p>Z equals {z}</p>
-  <p>{doubled.join(', ')}</p>
-  {MyList()}
-  <p>You can now access each variable separately:</p>
-  <p>{truck}</p>
-  <p>with destructuring</p>
-  <p>{truck2}</p>
-  <p>The year is {year}</p>
-  <p>{firstName} {lastName} {age} years old</p>
-  <Counter/>
-  {mapping_the_output()}
-  <p>{message()}</p>
-  <p>{message2}</p>
-  <h1>Part two: Learning JSX</h1>
-  <p>{myelement}</p>
-  <p>{learnJSX.myElement2}</p>
-  {learnJSX.myElement3}
-  {learnJSX.myElement4}
-  <learnJSX.MyCar/>
-  <learnJSX.MySavings/>
-  <learnJSX.MyObject/>
-  <learnJSX.StyledCar/>
-  <learnJSX.Fruits/>
-  <learnJSX.FruitsT/>
-  <learnJSX.Car6 color="red"/>
-  <learnJSX.Car6 year={2021}/>
-  <learnJSX.Car7/>
-  <learnJSX.Garage/>
-  <learnJSX.Parent/>
-  <learnJSX.Football/>
-  <learnJSX.Football2/>
-  <learnJSX.Goal isGoal={false}/>
-  <learnJSX.Car_more brand="Ford"/>
-  <learnJSX.Goal_more_more isGoal={false}/>
-  <h1>This uses basic Mapping to display</h1>
-  <learnJSX.ListCar/>
-  <h1>This uses a created key to display</h1>
-  <learnJSX.Listcar2/>
-  <h1>This uses the index to display</h1>
-  <learnJSX.ListCar3/>
-  <learnJSX.MyForm/>
-  <h1>using react useState and a Hook</h1>
-  <learnJSX.MyForm2/>
-  <h1>using a submit button</h1>
-  <learnJSX.MyForm3/>
-  <h1>Using textarea</h1>
-  <learnJSX.MyForm4/>
-  <learnJSX.MyForm5/>
-  <learnJSX.MyForm6/>
-  <learnJSX.MyForm7/>
-  <learnJSX.MyForm8/>
-  <learnJSX.myChild/>
-  <learnJSX.MyApp1/>
-  <learnJSX.App/>
+    {myelement}
+    <div>{mycar.show()}</div>
+    <div>{hello(val)}</div>
+    <div>X equals {x}</div>
+    <div>Y equals {y}</div>
+    <div>Z equals {z}</div>
+    <div>{doubled.join(', ')}</div>
+    {MyList()}
+    <div>You can now access each variable separately:</div>
+    <div>{truck}</div>
+    <div>with destructuring</div>
+    <div>{truck2}</div>
+    <div>The year is {year}</div>
+    <div>{firstName} {lastName} {age} years old</div>
+    <Counter />
+    {mapping_the_output()}
+    <div>{message()}</div>
+    <div>{message2}</div>
+    <h1>Part two: Learning JSX</h1>
+    <div>{myelement}</div>
+    <div>{learnJSX.myElement2}</div>
+    {learnJSX.myElement3}
+    {learnJSX.myElement4}
+    <learnJSX.MyCar />
+    <learnJSX.MySavings />
+    <learnJSX.MyObject />
+    <learnJSX.StyledCar />
+    <learnJSX.Fruits />
+    <learnJSX.FruitsT />
+    <learnJSX.Car6 color="red" />
+    <learnJSX.Car6 year={2021} />
+    <learnJSX.Car7 />
+    <learnJSX.Garage />
+    <learnJSX.Parent />
+    <learnJSX.Football />
+    <learnJSX.Football2 />
+    <learnJSX.Goal isGoal={false} />
+    <learnJSX.Car_more brand="Ford" />
+    <learnJSX.Goal_more_more isGoal={false} />
+    <h1>This uses basic Mapping to display</h1>
+    <learnJSX.ListCar />
+    <h1>This uses a created key to display</h1>
+    <learnJSX.Listcar2 />
+    <h1>This uses the index to display</h1>
+    <learnJSX.ListCar3 />
+    <learnJSX.MyForm />
+    <h1>using react useState and a Hook</h1>
+    <learnJSX.MyForm2 />
+    <h1>using a submit button</h1>
+    <learnJSX.MyForm3 />
+    <h1>Using textarea</h1>
+    <learnJSX.MyForm4 />
+    <learnJSX.MyForm5 />
+    <learnJSX.MyForm6 />
+    <learnJSX.MyForm7 />
+    <learnJSX.MyForm8 />
+    <learnJSX.myChild />
+    <learnJSX.MyApp1 />
+    <learnJSX.App />
+    <learnJSX.App2 />
+    <learnJSX.Header />
+    <div className="header3">
+      <learnJSX.Header3 />
+    </div>
+    <learnJSX.Car />
+    <learnJSX.ModuleApp />
+    <learnJSX.AppGlobal />
+    <learnJSX.App3/>
+    <learnJSX.App4/>
+    <learnJSX.App5/>
   </div>
 )

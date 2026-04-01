@@ -239,7 +239,7 @@ export function ListCar() {
         <>
             <h1>My Cars:</h1>
             <ul>
-                {cars.map((car) => <li>I am a {car}</li>)}
+                {cars.map((car, index) => <li key={index}>I am a {car}</li>)}
             </ul>
         </>
     );
@@ -582,50 +582,226 @@ export function MyApp1() {
 // Even though a portal renders content in a different part of the DOM tree,
 // events from the portal content still bubble up through the React component tree as if the portal wasn't there.
 function PortalButton({ onClick, children }) {
-  return createPortal(
-    <button 
-      onClick={onClick}
-      style={{
-        position: 'fixed',
-        bottom: '20px',
-        right: '20px',
-        padding: '10px',
-        background: 'blue',
-        color: 'white'
-      }}>
-      {children}
-    </button>,
-    document.body
-  );
+    return createPortal(
+        <button
+            onClick={onClick}
+            style={{
+                position: 'fixed',
+                bottom: '20px',
+                right: '20px',
+                padding: '10px',
+                background: 'blue',
+                color: 'white'
+            }}>
+            {children}
+        </button>,
+        document.body
+    );
 }
 
 export function App() {
-  const [count1, setCount1] = useState(0);
-  const [count2, setCount2] = useState(0);
+    const [count1, setCount1] = useState(0);
+    const [count2, setCount2] = useState(0);
 
-  return (
-    <div
-      style={{
-        padding: '20px',
-        border: '2px solid black',
-        margin: '20px'
-      }}
-      onClick={() => {
-        setCount1(c => c + 1);
-      }}>
-      <h2>Div Clicked: {count1}</h2>
-      <h2>Button Clicked: {count2}</h2>      
-      <p>The floating button is rendered outside this box using a portal,
-          but its clicks still bubble up to this parent div!</p>
-      <p>Try to click the div element as well, to see the count increase</p>
-      
-      <PortalButton
-        onClick={(e) => {
-          // This runs first
-          setCount2(c => c + 1);
-        }}>
-        Floating Button
-      </PortalButton>
-    </div>
-  );
+    return (
+        <div
+            style={{
+                padding: '20px',
+                border: '2px solid black',
+                margin: '20px'
+            }}
+            onClick={() => {
+                setCount1(c => c + 1);
+            }}>
+            <h2>Div Clicked: {count1}</h2>
+            <h2>Button Clicked: {count2}</h2>
+            <p>The floating button is rendered outside this box using a portal,
+                but its clicks still bubble up to this parent div!</p>
+            <p>Try to click the div element as well, to see the count increase</p>
+
+            <PortalButton
+                onClick={(e) => {
+                    // This runs first
+                    setCount2(c => c + 1);
+                }}>
+                Floating Button
+            </PortalButton>
+        </div>
+    );
+}
+
+// Suspense and lazy loading
+// React Suspense lets you display an alternative HTML while waiting for code or data to load.
+import { Suspense, lazy } from 'react';
+// This now calls a function that returns a promise
+const Cars = lazy(() => import('./ListCar3.jsx'));
+
+export function App2() {
+    return (
+        <div>
+            <Suspense fallback={<div>Loading...</div>}>
+                <Cars />
+            </Suspense>
+        </div>
+    );
+}
+
+// One Suspense component can wrap multiple lazy components: For instance
+// const Header = lazy(() => import('./Header'));
+// const Content = lazy(() => import('./Content'));
+// const Sidebar = lazy(() => import('./Sidebar'));
+
+
+// CSS Styling in React
+const Header1 = () => {
+    return (
+        <>
+            <h1 style={{ color: "red" }}>Hello Style!</h1>
+            <p>Add a little style!</p>
+        </>
+    );
+}
+
+// Since the inline CSS is written in a JavaScript object, 
+// properties with hyphen separators, like background-color, 
+// must be written with camel case syntax:
+const Header2 = () => {
+    return (
+        <>
+            <h1 style={{ backgroundColor: "lightblue" }}>This is styled</h1>
+            <p>With background color</p>
+        </>
+    );
+}
+
+// Javascript objects can be used to store the styles and then applied to the elements:
+export const Header = () => {
+    const myStyle = {
+        color: "white",
+        backgroundColor: "DodgerBlue",
+        padding: "10px",
+        fontFamily: "Sans-Serif"
+    };
+    return (
+        <>
+            <h1 style={myStyle}>This uses an object to style</h1>
+        </>
+    )
+}
+
+// Using an external stylesheet see main
+export const Header3 = () => {
+    return (
+        <>
+            <h1>Hello Style!</h1>
+            <p>This is styled using an external stylesheet!</p>
+        </>
+    );
+}
+
+// Using CSS Modules
+//import styles from './my-style.module.css'; 
+
+export const Car = () => {
+    return <h1 className={styles.bigred}>Hello Car! This is styled using a CSS module!</h1>;
+}
+
+// Modules Extended
+// An example with two buttons, with different styling:
+import buttonStyles from './Button.module.css';
+
+export function ModuleApp() {
+    return (
+        <div>
+            <button className={`${buttonStyles.primary}`}>
+                My Primary Button
+            </button>
+            <button className={`${buttonStyles.secondary}`}>
+                My Secondary Button
+            </button>
+        </div>
+    );
+}
+
+// Composing Classes
+// CSS Modules allow you to combine classes using the composes keyword:
+// This now uses composes: mybutton; in the stylesheet to remove the need to use template literals and className in the component. See Button.module.css for example.
+
+// Global CSS
+// CSS example :global(.myheader) {}
+import styles from './BlueHeader.module.css';
+
+export function AppGlobal() {
+    return (
+        <div>
+            <h1 className="myheader">
+                My Header
+            </h1>
+        </div>
+    );
+}
+
+// Using CSS in JS
+// run npm install styled-components
+import styled from 'styled-components';
+
+const MyHeader4 = styled.h1`
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: white;
+`;
+
+export function App3() {
+    return (
+        <>
+            <MyHeader4>This component uses a styled component</MyHeader4>
+        </>
+    );
+}
+
+// using props in styled components
+export const Button = styled.button`
+  padding: 10px 20px;
+  border: none;
+  border-radius: 4px;
+  background-color: ${props => props.btntype === 'primary' ? '#007bff' : '#6c757d'};
+  color: white;
+  cursor: pointer;
+`;
+
+export function App4() {
+    return (
+        <div>
+            <Button btntype="primary">Primary Button</Button>
+            <br />
+            <br />
+            <Button>Secondary Button</Button>
+        </div>
+    );
+}
+
+// Styled components Global styles
+import { createGlobalStyle } from 'styled-components';
+
+const GlobalStyle = createGlobalStyle`
+  h1 {
+    color: white;
+    background-color: purple;
+    font-family: Arial, sans-serif;
+    }
+
+    .myparagrath {
+    font-family: 'Courier New', Courier, monospace;
+    color: blue;
+    }
+    `;
+
+export function App5() {
+    return (
+        <>
+            <GlobalStyle />
+            <h1>This is a global styled header</h1>
+            <p className="myparagrath">This is a global styled paragrath</p>
+        </>
+    );
 }
