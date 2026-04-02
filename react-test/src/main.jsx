@@ -224,5 +224,9 @@ createRoot(document.getElementById('root')).render(
     <learnJSX.App3/>
     <learnJSX.App4/>
     <learnJSX.App5/>
+    <learnJSX.App7/>
+    <learnJSX.NestedApp/>
+    <learnJSX.App8/>
+    <learnJSX.URLApp/>
   </div>
 )
