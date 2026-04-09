@@ -976,3 +976,150 @@ export function URLApp() {
         </BrowserRouter>
     )
 }
+
+// useTrasnition
+// The useTransition hook helps you keep your React app responsive during heavy updates.
+// It lets you mark some state updates as "non-urgent", allowing other, more urgent updates to happen first.
+import {useTransition} from 'react';
+
+export function SearchBar() {
+    const [text, setText] = useState('');
+    const [results, setResults] = useState('');
+    const [isPending, startTransition] = useTransition();
+
+    const handleChange = (e) => {
+        // Urgent: update input right away
+        setText(e.target.value);
+
+        // Non-urgent: Update search results
+        startTransition(() => {
+            setResults(e.value);
+        });
+    };
+
+    return (
+        <div>
+            <input value={text} onChange={handleChange} />
+            {isPending ? (
+                <p>Loading...</p>
+            ):(
+                <p>Search results for: {results}</p>
+            )}
+        </div>
+    );
+} 
+
+// Real-World example with a search time
+
+// useTransition Hook
+// The useTransition hook returns two items:
+// isPending: tells you if a transition is active
+// startTransition: function to mark updates as transitions
+
+// How this example works:
+// When you type in the input field, it updates immediately
+// The search results update is wrapped in startTransition
+// While the results are updating, isPending is true
+// The UI stays responsive even with many results
+
+// import { useState, useTransitions } from 'react';
+
+export function SearchResults({ query }) {
+    // Simulate slow search results
+    const items = [];
+    if (query) {
+        for (let i = 0; i < 1000; i++){
+            items.push(<li key={i}>Result for {query} - {i}</li>);
+        }
+    }
+    return <ul>{items}</ul>;
+}
+
+export function SearchApp() {
+    const [input, setInput] = useState('');
+    const [query, setQuery] = useState('');
+    const [isPending, startTransition] = useTransition();
+
+    const handleChange = (e) => {
+        // Urgent: Update input field
+        setInput(e.target.value);
+
+        // Non-Urgent: update search results
+        startTransition(() => {
+            setQuery(e.target.value);
+        });
+    };
+
+    return (
+        <div>
+            <input
+            type="text"
+            value={input}
+            onChange={handleChange}
+            placeholder='Type to search...'
+            />
+            {isPending && <p>Loading results...</p>}
+            <SearchResults query={query} />
+        </div>
+    );
+}
+
+// React ForwardRef
+// forwardRef lets your component pass a reference to one of its children. 
+// It's like giving a direct reference to a DOM element inside your component.
+import { forwardRef, useRef } from 'react';
+
+const MyInput = forwardRef((props, ref) => (
+    <input ref={ref} {...props} />
+));
+
+export function RefApp() {
+    const inputRef = useRef();
+
+    const focusInput = () => {
+        inputRef.current.focus();
+    };
+
+    return (
+        <div>
+            <MyInput ref={inputRef} placeholder="type here..."/>
+            <button onClick={focusInput}>Focus Input</button>
+        </div>
+    );
+}
+
+// Higher order components (HOC)
+// A higher-order component is a function that takes a component and returns a new component. 
+// HOCs are used to reuse component logic, such as adding common functionality to multiple components without repeating code.
+
+// example adding a border to whatever is passed to it
+export function WithBorder(WrappedComponent) {
+    return function NewComponent(props) {
+        return (
+            <div style={{border: '2px solid blue', padding: '10px'}}>
+                <WrappedComponent {...props}/>
+            </div>
+        );
+    };
+}
+
+// Simple component wihtout border
+function Greeting({name}) {
+    return <h1>Hello, {name}!</h1>;
+}
+
+// Create a new component with the border
+const GreetingWithBorder = WithBorder(Greeting);
+
+export function HOCApp() {
+    return (
+        <div>
+            <Greeting name='John' />
+            <GreetingWithBorder name='Jane'/>
+        </div>
+    );
+}
+
+// Sass 
+// Sass is a CSS preprocessor that adds features like variables, nested rules, mixins, and functions to regular CSS.
+// To use Sass in a React project, you can install the node-sass package and

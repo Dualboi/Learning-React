@@ -228,5 +228,9 @@ createRoot(document.getElementById('root')).render(
     <learnJSX.NestedApp/>
     <learnJSX.App8/>
     <learnJSX.URLApp/>
+    <learnJSX.SearchBar/>
+    <learnJSX.SearchApp/>
+    <learnJSX.RefApp/>
+    <learnJSX.HOCApp/>
   </div>
 )
