@@ -1123,7 +1123,7 @@ export function HOCApp() {
 // Sass 
 // Sass is a CSS preprocessor that adds features like variables, nested rules, mixins, and functions to regular CSS.
 // To use Sass in a React project, you can install the node-sass package and
-import './MyStyle.scss'; // Then you can import your .scss file into your React component and use the defined styles as you would with regular CSS. See MyStyle.scss for example.
+//import './MyStyle.scss'; // Then you can import your .scss file into your React component and use the defined styles as you would with regular CSS. See MyStyle.scss for example.
 
 export function MySassHeader() {
     return (
@@ -1142,4 +1142,190 @@ export function MySassModuleHeader() {
             <h3>My header 3</h3>
         </div>
     );
+}
+
+// React Hook
+// import { useState } from  'react';
+// inport { createRoot } from 'react-dom/client';
+
+export function FavoriteColor() {
+    const [color, setColor] = useState("red");
+
+    return (
+        <>
+        <h2>My favorite color is {color}!</h2>
+        <button 
+        type="button"
+        onClick={() => setColor("blue")}
+        >Blue</button>
+        <button
+        typ="button"
+        onClick={() => setColor("red")}
+        >Red</button>
+        <button
+        type="button"
+        onClick={() => setColor("pink")}
+        >Pink</button>
+        <button 
+        type="buttom"
+        onClick={() => setColor("green")}
+        >Green</button>
+        </>
+    );
+}
+
+// useState Hook
+// import { useState } from "react";
+
+// Initialise useState
+//function FavoriteColor() {
+//  const [color, setColor] = useState("red");
+//             initialised here ^ default value of red
+//}
+// The first value, color, is our current state.
+// The second value, setColor, is the function that is used to update our state.
+
+// Reading state
+// Using the render function
+// createRoot(document.getElementById('root')).render(
+//     <FavoriteColor />
+// );
+
+// Updating state 
+// We should never directly update state. Ex: color = "blue" is not allowed.
+
+// onClick={() => setColor("blue")}
+
+// React useEffect Hook
+// The useEffect Hook allows you to perform side effects in your components
+// Use setTimeout() to count 1 second after initial render:
+import { useEffect } from 'react';
+
+export function Timer() {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        setTimeout(() => {
+            setCount((count) => count +1);
+        }, 1000);
+    },[]); // <- can be fixed by adding in empty brackets here
+
+    return <h1>I've rendered {count} times!</h1>;
+}
+// This causes issues as with every render of the render itself causes a count so it creates a recursion issue
+
+// An example of useEffect Hook that is dependent on a variable. 
+// if the count var updates the effect runs again.
+//import { useState, useEffect } from 'react';
+//import { createRoot } from 'react-dom/client';
+
+export function CounterUseEffect() {
+    const [count, setCount] = useState(0);
+    const [calculation, setCalculation] = useState(0);
+
+    useEffect(() => {
+        setCalculation(() => count * 2);
+    },[count]); // <- add the count variable here
+
+    return (
+        <>
+        <p>Count: {count}</p>
+        <button onClick={() => setCount((c) => c + 1)}>+</button>
+        <p>Calculation is button click count value x2:</p>
+        <p>{calculation}</p>
+        </>
+    );
+}
+
+// Effect Cleanup
+// Sometimes clean up is needed to reduce memory leaks
+//import { useState, useEffect } from 'react';
+//import { createRoot } from 'react-dom/client';
+
+export function TimerWithCleanUp() {
+    const [count, setCount] = useState(0);
+
+    useEffect(() => {
+        let timer = setTimeout(() => {
+            setCount((count) => count + 1);
+        }, 1000);
+
+        return () => clearTimeout(timer) 
+    },[]);
+
+    return <h1>I've rendered {count} times!</h1>
+}
+
+// useContext Hook
+// React Context is a way to manage state globally.
+// It can be used together with the useState Hook to share state between,
+// deeply nested components more easily than with useState alone.
+
+// Example without using useContext passing state up from the lowest component to the highest using prop drilling
+//import { useState } from 'react';
+//import { createRoot } from 'react-dom/client';
+
+export function Component1() {
+    const [user, setUser] = useState("Linus");
+
+    return (
+        <>
+        <h1>{`Hello ${user}!`}</h1>
+        <Component2 user={user} />
+        </>
+    )
+}
+export function Component2({ user }) {
+  return (
+    <>
+      <h1>Component 2</h1>
+      <Component3 user={user} />
+    </>
+  );
+}
+
+export function Component3({ user }) {
+  return (
+    <>
+      <h1>Component 3</h1>
+      <h2>{`Hello ${user} again!`}</h2>
+    </>
+  );
+}
+
+// The solution using create context
+import { createContext, useContext } from 'react';
+
+// Next we'll use the Context Provider to wrap the tree of components that need the state Context.
+const UserContext = createContext();
+
+export function ContextComponent1() {
+    const [user, setUser] = useState("Linus");
+
+    return (
+        <UserContext.Provider value={user}>
+            <h1>{`Hello ${user}!`}</h1>
+            <ContextComponent2 />
+        </UserContext.Provider>
+    )
+}
+
+export function ContextComponent2() {
+  return (
+    <>
+      <h1>ContextComponent2</h1>
+      <Component3 />
+    </>
+  );
+}
+
+export function ContextComponent3() {
+  const user = useContext(UserContext);
+
+  return (
+    <>
+      <h1>ContextComponent3</h1>
+      <h2>{`Hello ${user} again!`}</h2>
+    </>
+  );
 }

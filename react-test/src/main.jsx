@@ -223,7 +223,7 @@ createRoot(document.getElementById('root')).render(
     <learnJSX.AppGlobal />
     <learnJSX.App3/>
     <learnJSX.App4/>
-    <learnJSX.App5/>
+    {/* <learnJSX.App5/> */}
     <learnJSX.App7/>
     <learnJSX.NestedApp/>
     <learnJSX.App8/>
@@ -234,5 +234,11 @@ createRoot(document.getElementById('root')).render(
     <learnJSX.HOCApp/>
     <learnJSX.MySassHeader/>
     <learnJSX.MySassModuleHeader/>
+    <learnJSX.FavoriteColor/>
+    <learnJSX.Timer/>
+    <learnJSX.CounterUseEffect/>
+    <learnJSX.TimerWithCleanUp/>
+    <learnJSX.Component1/>
+    <learnJSX.ContextComponent1/>
   </div>
 )
