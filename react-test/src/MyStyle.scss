@@ -1,0 +1,21 @@
+@use 'sass:color';
+$myColor: red;
+$myColor: red;
+
+.SassHead {
+    color: $myColor;
+    background-color: white;
+}
+
+
+h1 {
+    color: $myColor;
+}
+
+h2 {
+    color: color.adjust($myColor, $lightness: -20%);
+}
+
+h3 {
+    color: color.adjust($myColor, $lightness: 20%);
+}

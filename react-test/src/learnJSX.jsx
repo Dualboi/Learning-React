@@ -1123,3 +1123,23 @@ export function HOCApp() {
 // Sass 
 // Sass is a CSS preprocessor that adds features like variables, nested rules, mixins, and functions to regular CSS.
 // To use Sass in a React project, you can install the node-sass package and
+import './MyStyle.scss'; // Then you can import your .scss file into your React component and use the defined styles as you would with regular CSS. See MyStyle.scss for example.
+
+export function MySassHeader() {
+    return (
+        <h1 class="SassHead">My Sass header</h1>
+    );
+}
+
+// Sass modules
+// Sass has many Built-in Modules that you can use to manipulate colors, math, strings, etc.
+// One example is the sass:color module.
+export function MySassModuleHeader() {
+    return (
+        <div>
+            <h1>My header 1</h1>
+            <h2>My header 2</h2>
+            <h3>My header 3</h3>
+        </div>
+    );
+}

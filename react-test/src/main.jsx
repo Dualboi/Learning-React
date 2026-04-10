@@ -232,5 +232,7 @@ createRoot(document.getElementById('root')).render(
     <learnJSX.SearchApp/>
     <learnJSX.RefApp/>
     <learnJSX.HOCApp/>
+    <learnJSX.MySassHeader/>
+    <learnJSX.MySassModuleHeader/>
   </div>
 )
