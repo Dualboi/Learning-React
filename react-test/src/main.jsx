@@ -240,5 +240,10 @@ createRoot(document.getElementById('root')).render(
     <learnJSX.TimerWithCleanUp/>
     <learnJSX.Component1/>
     <learnJSX.ContextComponent1/>
+    <learnJSX.App9/>
+    <learnJSX.App10/>
+    <learnJSX.Score/>
+    <learnJSX.WithoutCallbackExample/>
+    <learnJSX.WithCallbackExample/>
   </div>
 )

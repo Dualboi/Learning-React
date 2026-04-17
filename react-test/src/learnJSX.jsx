@@ -772,10 +772,10 @@ export const Button = styled.button`
 export function App4() {
     return (
         <div>
-            <Button btntype="primary">Primary Button</Button>
+            <Button2 btntype="primary">Primary Button</Button2>
             <br />
             <br />
-            <Button>Secondary Button</Button>
+            <Button2>Secondary Button</Button2>
         </div>
     );
 }
@@ -980,7 +980,7 @@ export function URLApp() {
 // useTrasnition
 // The useTransition hook helps you keep your React app responsive during heavy updates.
 // It lets you mark some state updates as "non-urgent", allowing other, more urgent updates to happen first.
-import {useTransition} from 'react';
+import { useTransition } from 'react';
 
 export function SearchBar() {
     const [text, setText] = useState('');
@@ -1002,12 +1002,12 @@ export function SearchBar() {
             <input value={text} onChange={handleChange} />
             {isPending ? (
                 <p>Loading...</p>
-            ):(
+            ) : (
                 <p>Search results for: {results}</p>
             )}
         </div>
     );
-} 
+}
 
 // Real-World example with a search time
 
@@ -1028,7 +1028,7 @@ export function SearchResults({ query }) {
     // Simulate slow search results
     const items = [];
     if (query) {
-        for (let i = 0; i < 1000; i++){
+        for (let i = 0; i < 1000; i++) {
             items.push(<li key={i}>Result for {query} - {i}</li>);
         }
     }
@@ -1053,10 +1053,10 @@ export function SearchApp() {
     return (
         <div>
             <input
-            type="text"
-            value={input}
-            onChange={handleChange}
-            placeholder='Type to search...'
+                type="text"
+                value={input}
+                onChange={handleChange}
+                placeholder='Type to search...'
             />
             {isPending && <p>Loading results...</p>}
             <SearchResults query={query} />
@@ -1082,7 +1082,7 @@ export function RefApp() {
 
     return (
         <div>
-            <MyInput ref={inputRef} placeholder="type here..."/>
+            <MyInput ref={inputRef} placeholder="type here..." />
             <button onClick={focusInput}>Focus Input</button>
         </div>
     );
@@ -1096,15 +1096,15 @@ export function RefApp() {
 export function WithBorder(WrappedComponent) {
     return function NewComponent(props) {
         return (
-            <div style={{border: '2px solid blue', padding: '10px'}}>
-                <WrappedComponent {...props}/>
+            <div style={{ border: '2px solid blue', padding: '10px' }}>
+                <WrappedComponent {...props} />
             </div>
         );
     };
 }
 
 // Simple component wihtout border
-function Greeting({name}) {
+function Greeting({ name }) {
     return <h1>Hello, {name}!</h1>;
 }
 
@@ -1115,7 +1115,7 @@ export function HOCApp() {
     return (
         <div>
             <Greeting name='John' />
-            <GreetingWithBorder name='Jane'/>
+            <GreetingWithBorder name='Jane' />
         </div>
     );
 }
@@ -1153,23 +1153,23 @@ export function FavoriteColor() {
 
     return (
         <>
-        <h2>My favorite color is {color}!</h2>
-        <button 
-        type="button"
-        onClick={() => setColor("blue")}
-        >Blue</button>
-        <button
-        typ="button"
-        onClick={() => setColor("red")}
-        >Red</button>
-        <button
-        type="button"
-        onClick={() => setColor("pink")}
-        >Pink</button>
-        <button 
-        type="buttom"
-        onClick={() => setColor("green")}
-        >Green</button>
+            <h2>My favorite color is {color}!</h2>
+            <button
+                type="button"
+                onClick={() => setColor("blue")}
+            >Blue</button>
+            <button
+                typ="button"
+                onClick={() => setColor("red")}
+            >Red</button>
+            <button
+                type="button"
+                onClick={() => setColor("pink")}
+            >Pink</button>
+            <button
+                type="buttom"
+                onClick={() => setColor("green")}
+            >Green</button>
         </>
     );
 }
@@ -1206,9 +1206,9 @@ export function Timer() {
 
     useEffect(() => {
         setTimeout(() => {
-            setCount((count) => count +1);
+            setCount((count) => count + 1);
         }, 1000);
-    },[]); // <- can be fixed by adding in empty brackets here
+    }, []); // <- can be fixed by adding in empty brackets here
 
     return <h1>I've rendered {count} times!</h1>;
 }
@@ -1225,14 +1225,14 @@ export function CounterUseEffect() {
 
     useEffect(() => {
         setCalculation(() => count * 2);
-    },[count]); // <- add the count variable here
+    }, [count]); // <- add the count variable here
 
     return (
         <>
-        <p>Count: {count}</p>
-        <button onClick={() => setCount((c) => c + 1)}>+</button>
-        <p>Calculation is button click count value x2:</p>
-        <p>{calculation}</p>
+            <p>Count: {count}</p>
+            <button onClick={() => setCount((c) => c + 1)}>+</button>
+            <p>Calculation is button click count value x2:</p>
+            <p>{calculation}</p>
         </>
     );
 }
@@ -1250,8 +1250,8 @@ export function TimerWithCleanUp() {
             setCount((count) => count + 1);
         }, 1000);
 
-        return () => clearTimeout(timer) 
-    },[]);
+        return () => clearTimeout(timer)
+    }, []);
 
     return <h1>I've rendered {count} times!</h1>
 }
@@ -1270,27 +1270,27 @@ export function Component1() {
 
     return (
         <>
-        <h1>{`Hello ${user}!`}</h1>
-        <Component2 user={user} />
+            <h1>{`Hello ${user}!`}</h1>
+            <Component2 user={user} />
         </>
     )
 }
 export function Component2({ user }) {
-  return (
-    <>
-      <h1>Component 2</h1>
-      <Component3 user={user} />
-    </>
-  );
+    return (
+        <>
+            <h1>Component 2</h1>
+            <Component3 user={user} />
+        </>
+    );
 }
 
 export function Component3({ user }) {
-  return (
-    <>
-      <h1>Component 3</h1>
-      <h2>{`Hello ${user} again!`}</h2>
-    </>
-  );
+    return (
+        <>
+            <h1>Component 3</h1>
+            <h2>{`Hello ${user} again!`}</h2>
+        </>
+    );
 }
 
 // The solution using create context
@@ -1311,21 +1311,215 @@ export function ContextComponent1() {
 }
 
 export function ContextComponent2() {
-  return (
-    <>
-      <h1>ContextComponent2</h1>
-      <Component3 />
-    </>
-  );
+    return (
+        <>
+            <h1>ContextComponent2</h1>
+            <Component3 />
+        </>
+    );
 }
 
 export function ContextComponent3() {
-  const user = useContext(UserContext);
+    const user = useContext(UserContext);
 
+    return (
+        <>
+            <h1>ContextComponent3</h1>
+            <h2>{`Hello ${user} again!`}</h2>
+        </>
+    );
+}
+
+// React useRef Hook
+// Use useRef to track application renders.
+//import { useRef, useEffect } from 'react';
+
+export function App9() {
+    const [inputValue, setInputValue] = useState("");
+    const count = useRef(0);
+
+    useEffect(() => {
+        count.current = count.current + 1;
+    });
+
+    return (
+        <>
+            <p>Type in the input field:</p>
+            <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+            />
+            <h1>Render count: {count.current}</h1>
+        </>
+    )
+}
+
+// Use useRef to focus the input:
+// see previous code above for this example on line 1067
+
+// Tracking State changes
+// The useRef Hook can also be used to keep track of previous state values.
+// This is because we are able to persist useRef values between renders.
+
+// import { useRef, useState, useEffect } from 'react';
+
+export function App10() {
+    const [inputValue, setInputValue] = useState("");
+    const previousInputValue = useRef("");
+
+    useEffect(() => {
+        previousInputValue.current = inputValue;
+    }, [inputValue]);
+
+    return (
+        <>
+            <input
+                type="text"
+                value={inputValue}
+                onChange={(e) => setInputValue(e.target.value)}
+            />
+            <h2>Current Value: {inputValue}</h2>
+            <h2>Previous Value: {previousInputValue.current}</h2>
+        </>
+    );
+}
+
+// React useReducer Hook
+// The useReducer Hook is similar to the useState Hook
+// it allows for custom state logic.
+
+// If you find yourself keeping track of multiple pieces of state that rely on,
+// complex logic, useReducer may be useful.
+import { useReducer } from 'react';
+
+const initialScore = [
+    {
+        id: 1,
+        score: 0,
+        name: "John",
+    },
+    {
+        id: 2,
+        score: 0,
+        name: "Sally",
+    },
+];
+
+const reducer = (state, action) => {
+    switch (action.type) {
+        case "INCREASE":
+            return state.map((player) => {
+                if (player.id === action.id) {
+                    return { ...player, score: player.score + 1 };
+                } else {
+                    return player;
+                }
+            });
+        default:
+            return state;
+    }
+};
+
+export function Score() {
+    const [score, dispatch] = useReducer(reducer, initialScore);
+
+    const handleIncrease = (player) => {
+        dispatch({ type: "INCREASE", id: player.id })
+    };
+
+    return (
+        <>
+            {score.map((player) => (
+            <div key={player.id}>
+                <label>
+                    <input
+                        type="button"
+                        onClick={() => handleIncrease(player)}
+                        value={player.name}
+                    />
+                    {player.score}
+                </label>
+            </div>
+        ))}
+        </>
+    );
+}
+
+// useCallback Hook
+// The useCallback Hook returns a memoized callback function.
+// It is useful when passing callbacks to optimized child components that rely on reference equality to prevent unnecessary renders.
+// Especially useful for reusing functions that are resource intensive.
+
+// Without useCallback
+//import React, { useState } from 'react';
+//import { createRoot } from 'react-dom/client';
+
+// Child component that receives a function prop
+const Button2 = React.memo(({ onClick, text }) => {
+    console.log(`child ${text} button rendered`);
+    return <button onClick={onClick}>{text}</button>;
+});
+
+// Parent component without useCallback
+export function WithoutCallbackExample() {
+    const [count1, setCount1] = useState(0);
+    const [count2, setCount2] = useState(0);
+
+    // This function is recreated on every render
+    const handleClick1 = () => {
+        setCount1(count1 + 1);
+    };
+
+    const handleClick2 = () => {
+        setCount2(count1 + 1);
+    };
+
+    console.log("parent rendered");
+    return (
+        <div>
+            <h2>Without useCallback:</h2>
+            <p>Count 1: {count1}</p>
+            <p>Count 2: {count2}</p>
+            <Button2 onClick={handleClick1} text="Button 1"/>
+            <Button2 onClick={handleClick2} text="Button 2"/>
+        </div>
+    );
+}
+
+// Now with using useCallback
+import { useCallback } from 'react';
+
+// Child component that receives a function prop
+const MemoizedButton = React.memo(({ onClick, text }) => {
+  console.log(`${text} button rendered`);
+  return <button onClick={onClick}>{text}</button>;
+});
+
+// Parent component with useCallback
+export function WithCallbackExample() {
+  const [count1, setCount1] = useState(0);
+  const [count2, setCount2] = useState(0);
+
+  // These functions are memoized and only recreated when dependencies change
+  const handleClick1 = useCallback(() => {
+    setCount1(count1 + 1);
+  }, [count1]);
+
+  const handleClick2 = useCallback(() => {
+    setCount2(count2 + 1);
+  }, [count2]);
+
+  console.log("Parent rendered");
   return (
-    <>
-      <h1>ContextComponent3</h1>
-      <h2>{`Hello ${user} again!`}</h2>
-    </>
+    <div>
+      <h2>With useCallback:</h2>
+      <p>Count 1: {count1}</p>
+      <p>Count 2: {count2}</p>
+      <MemoizedButton onClick={handleClick1} text="Button 1" />
+      <MemoizedButton onClick={handleClick2} text="Button 2" />
+    </div>
   );
 }
+
+// React useMemo
