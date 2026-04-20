@@ -1431,17 +1431,17 @@ export function Score() {
     return (
         <>
             {score.map((player) => (
-            <div key={player.id}>
-                <label>
-                    <input
-                        type="button"
-                        onClick={() => handleIncrease(player)}
-                        value={player.name}
-                    />
-                    {player.score}
-                </label>
-            </div>
-        ))}
+                <div key={player.id}>
+                    <label>
+                        <input
+                            type="button"
+                            onClick={() => handleIncrease(player)}
+                            value={player.name}
+                        />
+                        {player.score}
+                    </label>
+                </div>
+            ))}
         </>
     );
 }
@@ -1481,8 +1481,8 @@ export function WithoutCallbackExample() {
             <h2>Without useCallback:</h2>
             <p>Count 1: {count1}</p>
             <p>Count 2: {count2}</p>
-            <Button2 onClick={handleClick1} text="Button 1"/>
-            <Button2 onClick={handleClick2} text="Button 2"/>
+            <Button2 onClick={handleClick1} text="Button 1" />
+            <Button2 onClick={handleClick2} text="Button 2" />
         </div>
     );
 }
@@ -1492,34 +1492,137 @@ import { useCallback } from 'react';
 
 // Child component that receives a function prop
 const MemoizedButton = React.memo(({ onClick, text }) => {
-  console.log(`${text} button rendered`);
-  return <button onClick={onClick}>{text}</button>;
+    console.log(`${text} button rendered`);
+    return <button onClick={onClick}>{text}</button>;
 });
 
 // Parent component with useCallback
 export function WithCallbackExample() {
-  const [count1, setCount1] = useState(0);
-  const [count2, setCount2] = useState(0);
+    const [count1, setCount1] = useState(0);
+    const [count2, setCount2] = useState(0);
 
-  // These functions are memoized and only recreated when dependencies change
-  const handleClick1 = useCallback(() => {
-    setCount1(count1 + 1);
-  }, [count1]);
+    // These functions are memoized and only recreated when dependencies change
+    const handleClick1 = useCallback(() => {
+        setCount1(count1 + 1);
+    }, [count1]);
 
-  const handleClick2 = useCallback(() => {
-    setCount2(count2 + 1);
-  }, [count2]);
+    const handleClick2 = useCallback(() => {
+        setCount2(count2 + 1);
+    }, [count2]);
 
-  console.log("Parent rendered");
-  return (
-    <div>
-      <h2>With useCallback:</h2>
-      <p>Count 1: {count1}</p>
-      <p>Count 2: {count2}</p>
-      <MemoizedButton onClick={handleClick1} text="Button 1" />
-      <MemoizedButton onClick={handleClick2} text="Button 2" />
-    </div>
-  );
+    console.log("Parent rendered");
+    return (
+        <div>
+            <h2>With useCallback:</h2>
+            <p>Count 1: {count1}</p>
+            <p>Count 2: {count2}</p>
+            <MemoizedButton onClick={handleClick1} text="Button 1" />
+            <MemoizedButton onClick={handleClick2} text="Button 2" />
+        </div>
+    );
 }
 
 // React useMemo
+// The use memo Hook can be used to keep expensive, function that runs on every render.
+
+// Example below: A poor performing function. The expensiveCalculation function runs on every render:
+export const App11 = () => {
+    const [count, setCount] = useState(0);
+    const [todos, setTodos] = useState([]);
+    const calculation = expensiveCalculation(count);
+
+    const increment = () => {
+        setCount((c) => c + 1);
+    };
+
+    const addTodo = () => {
+        setTodos((t) => [...t, "New Todo"]);
+    };
+
+    return (
+        <div>
+            <div>
+                <h2>My Todos</h2>
+                {todos.map((todo, index) => {
+                    return <p key={index}>{todo}</p>;
+                })}
+                <button onClick={addTodo}>Add Todo</button>
+            </div>
+            <hr />
+            <div>
+                Count: {count}
+                <button onClick={increment}>+</button>
+                <h2>Expensive Calculation</h2>
+                {calculation}
+                <p>Note that this example executes the expensive function also when you click on the Add Todo button.</p>
+            </div>
+        </div>
+    );
+};
+
+const expensiveCalculation = (num) => {
+    console.log("Calculating...");
+    for (let i = 0; i < 1000000000; i++) {
+        num += 1;
+    }
+    return num;
+};
+
+// Now with useMemo to fix the performance issue
+// To fix this performance issue, we can use the useMemo Hook to memoize the expensiveCalculation function.
+// This will cause the function to only run when needed.
+import { useMemo } from 'react';
+
+export const App11WithMemo = () => {
+    const [count, setCount] = useState(0);
+    const [todos, setTodos] = useState([]);
+    const calculation = useMemo(() => expensiveCalculation(count), [count]);
+
+    const increment = () => {
+        setCount((c) => c + 1);
+    };
+
+    const addTodo = () => {
+        setTodos((t) => [...t, "New Todo"]);
+    };
+
+    return (
+        <div>
+            <div>
+                <h2>My Todos</h2>
+                {todos.map((todo, index) => {
+                    return <p key={index}>{todo}</p>;
+                })}
+                <button onClick={addTodo}>Add Todo</button>
+            </div>
+            <hr />
+            <div>
+                Count: {count}
+                <button onClick={increment}>+</button>
+                <h2>Expensive Calculation</h2>
+                {calculation}
+            </div>
+        </div>
+    );
+};
+
+// Custom Hooks
+// Making your own Hooks always start with use
+// Custom Hooks can be made by creating a js file and the name of the file must start with use
+
+// Example: Use the JSONPlaceholder service to fetch some fake titles and display them:
+import useFetch from "./useFetch.js"; // importing the custom made hook
+
+export const Home2 = () => {
+    const [data] = useFetch("https://jsonplaceholder.typicode.com/todos");
+//                 ^ Using the custom hook here
+    return (
+        <>
+            <h1>Placeholder text imported using the custom fetch hook</h1>
+            {data &&
+                data.map((item) => {
+                    return <p key={item.id}>{item.title}</p>;
+                })}
+        </>
+    );
+};

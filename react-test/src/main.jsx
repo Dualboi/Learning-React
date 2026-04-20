@@ -245,5 +245,8 @@ createRoot(document.getElementById('root')).render(
     <learnJSX.Score/>
     <learnJSX.WithoutCallbackExample/>
     <learnJSX.WithCallbackExample/>
+    <learnJSX.App11/>
+    <learnJSX.App11WithMemo/>
+    <learnJSX.Home2/>
   </div>
 )
